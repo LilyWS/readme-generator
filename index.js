@@ -1,5 +1,6 @@
 // TODO: Include packages needed for this application
 const inq = require('inquirer');
+const fs = require('fs');
 
 // TODO: Create an array of questions for user input
 const questions = [
@@ -30,32 +31,51 @@ const questions = [
     },
     {
         name: 'test',
-        message: ' ',
+        message: 'Describe how to test your application',
         type: 'input'
+    },
+    {
+        name: 'license',
+        message: 'pick which licensing type you would like',
+        type: 'list',
+        choices: ['MIT', 'Creative Commons', 'Mozilla', 'Apache']
     }
 ];
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    fs.writeFile(filename, md, err =>{
+    fs.writeFile(fileName, data, err =>{
         if (err) return console.log(err);
         console.log('success')
     })
 }
 
 var template = (data) => { 
-    return `# ${data.title}
+    return `# ${data.title} 
+1. [Description](#description)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [Contribution](#contribution)
+5. [Testing](#testing)
+6. [License](#license)
 ## Description
+${data.desc}
 ## Installation
+${data.install}
 ## Usage
-## Contribution 
-## Testing`
+${data.usage}
+## Contribution
+${data.contribution} 
+## Testing <a name="Testing"></a>
+${data.test}
+## License
+`
 }
 
 // TODO: Create a function to initialize app
 function init() {
     inq.prompt(questions)
-        .then(data => writeToFile('readme.md', template.data));
+        .then(data => writeToFile('readme.md', template(data)));
 }
 
 // Function call to initialize app
