@@ -75,7 +75,7 @@ ${data.test}
 // TODO: Create a function to initialize app
 function init() {
     inq.prompt(questions)
-        .then(data => writeToFile('readme.md', template(data)));
+        .then(data => writeToFile('generatedReadme.md', template(data)));
 }
 
 // Function call to initialize app
